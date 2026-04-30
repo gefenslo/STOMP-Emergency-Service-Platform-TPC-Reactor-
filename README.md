@@ -14,13 +14,16 @@ This project provides a real-time event management system where emergency respon
 
 ### Server-Side (Java)
 - **Reactor Pattern**: Non-blocking I/O using Java NIO `Selector`
+- **TPC (Thread-Per-Client) Pattern**: Alternative blocking I/O model with one thread per connected client
 - **Thread Pool**: `ActorThreadPool` preserves per-connection message ordering
 - **STOMP Protocol**: Full implementation of STOMP 1.2 messaging
 - **Connection Management**: Global registry tracking active clients and subscriptions
 
 **Key Server Classes:**
+- `BaseServer<T>`: Abstract base class providing common server functionality and lifecycle management (TPC)
 - `Reactor<T>`: Main server loop (NIO-based)
 - `NonBlockingConnectionHandler<T>`: Per-client connection state
+- `BlockingConnectionHandler<T>`: Per-client connection handler (TPC model, blocking I/O)
 - `StompMessagingProtocolIMPL`: STOMP command processing
 - `ConnectionsIMPL`: Global connection/subscription registry
 - `MessageEncoderDecoderImpl`: STOMP frame encoding/decoding
@@ -102,7 +105,7 @@ StompServer/
 
 ## Configuration
 
-**Server default:** Port `8080`  
+**Server default:** Port `7777`  
 **Client connection:** `host:port username passcode`
 
 ## Event Format (JSON)
@@ -129,10 +132,4 @@ StompServer/
 - Buffer pooling reduces GC pressure in Reactor
 - Event statistics generated on-demand
 
-## Future Improvements
 
-- TLS/SSL encryption
-- Persistent event storage
-- Event filtering and search
-- Admin dashboard
-- Metrics and monitoring
