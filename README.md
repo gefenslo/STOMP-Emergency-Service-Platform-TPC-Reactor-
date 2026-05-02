@@ -42,11 +42,17 @@ This project provides a real-time event management system where emergency respon
 
 ## Building
 
-### Server
+### Server- Reactor mode
 ```bash
 cd server
 mvn clean compile
-mvn exec:java -Dexec.mainClass="bgu.spl.net.impl.StompServer"
+mvn exec:java -Dexec.mainClass="bgu.spl.net.impl.stomp.StompServer" -Dexec.args="7777 reactor"
+```
+### Server- TPC Mode
+```bash
+cd server
+mvn clean compile
+mvn exec:java -Dexec.mainClass="bgu.spl.net.impl.stomp.StompServer" -Dexec.args="7777 tpc"
 ```
 
 ### Client
