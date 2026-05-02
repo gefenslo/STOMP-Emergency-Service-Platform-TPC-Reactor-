@@ -464,7 +464,11 @@ int main(int argc, char *argv[]) {
 
     ioThread.join();
     communicationThread.join();
+    
+    // Optional: explicit cleanup before exit
+    running = false;
+    if (sock >= 0) close(sock);
 
-	return 0;
+    return 0;
 }
 
